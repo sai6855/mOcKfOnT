@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
 function App() {
+  const [input, setInput] = React.useState("");
+  let mock = input.split("");
+  mock = mock.map((char, i) =>
+    i % 2 === 0 ? char.toLowerCase() : char.toUpperCase()
+  );
+
+  mock = mock.join("");
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input value={input} onChange={(e) => setInput(e.target.value)} />
+      <p>{mock}</p>
+      <button
+        onClick={() => {
+          navigator.clipboard.writeText(mock);
+          alert("text copied");
+        }}
+      >
+        Copy
+      </button>
+      <button
+        onClick={() => {
+          setInput("");
+        }}
+      >
+        Clear
+      </button>
     </div>
   );
 }
